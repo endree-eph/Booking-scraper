@@ -33,7 +33,45 @@ def process_data(people, country, city, datein, dateout, is_detail, limit):
     #dateout= datetime.datetime.now() + datetime.timedelta(7)
     offset=0
 
-
+        #####################################
+    def get_max_offset(soup):
+    	all_offset = []
+    	if soup.find_all('li', {'class': 'sr_pagination_item'}) is not None:
+    		all_offset = soup.find_all('li', {'class': 'sr_pagination_item'})[-1].get_text().splitlines()[-1]
+    	return all_offset
+    	
+    	
+    if limit < 0:
+    	max_offset = int(get_max_offset(soup))
+    elif limit > 0:
+    	max_off = int(get_max_offset(soup))
+    	if limit > max_off:
+    		max_offset = max_off
+    	else:
+    		max_offset = limit
+    		
+    if is_verbose:
+    	print("[~] Page to fetch: " + str(max_offset))
+    	
+    if is_verbose:
+    	print("[~] Initializing Threads...")
+    
+    if max_offset > 0:
+    	for i in range(int(max_offset));
+    		offset += 25
+    		t = ThreadScraper(session, offset, people, country, city, datein, dateout, is_detail, parsing_date)
+    		threads.append(t)
+    	for t in threads:
+    		t.start()
+    	for T in threads:
+    		t.join()
+    else:
+    	t = ThreadScraper(session, offset, people, country, city, datein, dateout, is_detail, parsing_data)
+    	threads.append(t)
+    	t.start()
+    	t.join
+    	
+    #####################################
 
     starting_url = create_url(people, country, city, datein, dateout, offset)
 
