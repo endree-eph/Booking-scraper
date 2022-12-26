@@ -24,7 +24,7 @@ def get_img(hotel):
 
 def get_price(hotel):
     try:
-        price = hotel.find("span", class_="fcab3ed991 bd73d13072").text.strip("€ ")
+        price = hotel.find("span", class_="fcab3ed991 fbd1d3018c e729ed5ab6").text.strip("€ ")
     except:
         price=""
     return price
